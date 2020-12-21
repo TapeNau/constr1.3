@@ -1,21 +1,48 @@
+import java.util.ArrayList;
+
 public class MultiThreading {
     public static void main(String[] args)
     {
-        // Initially, there needs to be some data 
-        // in order to consume the data. So, 
-        // Producer object is created first 
-        Producer p = new Producer();
+        ArrayList<Goods> list = new ArrayList<Goods>();
+        Storage s = new Storage();
 
-        // Sending this producer object 
-        // into the consumer 
-        Consumer c = new Consumer(p);
-        Thread t1 = new Thread(p);
-        Thread t2 = new Thread(c);
+//        list.add(new Goods("Деревина", 100));
+//        list.add(new Goods("Залізна руда", 80));
+//        list.add(new Goods("Золота руда", 40));
+//        list.add(new Goods("Мідна руда", 80));
+//
+//        s.setGoodsInvoice(list);
+//        s.createProcess("РудаЮкрейн", "РудаПольша");
 
-        // Since from the producer object, 
-        // we have already produced the data. 
-        // So, we start by consuming it. 
-        t2.start();
-        t1.start();
+//        list.add(new Goods("Двері", 20));
+//        list.add(new Goods("Вікна", 25));
+//        list.add(new Goods("Стільці", 25));
+//        list.add(new Goods("Столи", 10));
+//        list.add(new Goods("Шафи", 12));
+//
+//        s.setGoodsInvoice(list);
+//        s.createProcess("МебліЮкрейн", "МебліПольша");
+
+//        list.add(new Goods("Телевізори", 18));
+//        list.add(new Goods("Проектори", 70));
+//        list.add(new Goods("Програвачі", 55));
+//
+//        s.setGoodsInvoice(list);
+//        s.createProcess("ТехнікаЮкрейн", "ТехнікаПольша");
+
+//        list.add(new Goods("Ковбаса", 500));
+//        list.add(new Goods("Сири", 700));
+//        list.add(new Goods("Вино", 220));
+//
+//        s.setGoodsInvoice(list);
+//        s.createProcess("Продукти Київ", "Продукти Біла Церква");
+
+        list.add(new Goods("Кільця", 112));
+        list.add(new Goods("Медальйони", 227));
+        list.add(new Goods("Браслети", 79));
+        list.add(new Goods("Намисто", 140));
+
+        s.setGoodsInvoice(list);
+        s.createProcess("Коштовності Ужгород", "Коштовності Київ");
     }
 } 

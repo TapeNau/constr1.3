@@ -1,39 +1,30 @@
-import java.lang.Thread;
+import java.io.*;
 
 class Consumer extends Thread {
+    private Invoice invoice;
+    private String name;
 
-    // Creating the object of the 
-    // producer class 
-    Producer p;
-
-    // Assigning the object of the 
-    // producer class 
-    Consumer(Producer temp)
-    {
-        p = temp;
+    public Consumer(Invoice c, String name) {
+        invoice = c;
+        this.name = name;
     }
 
-    // Overriding the run method 
-    public void run()
-    {
-
-        // Controlling the access of the 
-        // buffer to the shared producer 
-        synchronized (p.buffer)
-        {
-            try {
-                p.buffer.wait();
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            // Printing the values of the string buffer 
-            // and consuming the buffer 
-            for (int i = 0; i < 4; i++) {
-                System.out.print(p.buffer.charAt(i) + " ");
-            }
-            System.out.println("\nBuffer is Empty");
+    public void run() {
+        for (int i = 0; i < invoice.getGoodsList().size(); i++) {
+            Goods value = invoice.get();
+            String text = invoice.getDate().toString() + " --- Покупець " + this.name + " забрав товар: " + value.getName() + " в кількості: " + value.getAmount();
+            this.Serialize(text);
+            System.out.println(text);
         }
+        this.Serialize("---");
     }
-} 
+
+    public void Serialize (String text) {
+        try(FileWriter fw = new FileWriter("myfile.txt", true);
+            BufferedWriter bw = new BufferedWriter(fw);
+            PrintWriter out = new PrintWriter(bw)) {
+                out.println(text);
+        } catch (IOException e) { }
+    }
+}
+
